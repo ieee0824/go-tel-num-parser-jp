@@ -1,6 +1,9 @@
 package tnp
 
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+)
 
 var telPatternRegs = map[string][]*regexp.Regexp{
 	"fixedLinePhone": []*regexp.Regexp{
@@ -33,4 +36,16 @@ func IsTelNumber(s string) (bool, string) {
 		}
 	}
 	return false, ""
+}
+
+func CropTelNumber(s string) (string, error) {
+	for _, rs := range telPatternRegs {
+		for _, r := range rs {
+			if r.Copy().MatchString(s) {
+				return r.Copy().FindString(s), nil
+			}
+		}
+	}
+
+	return "", fmt.Errorf("not tel number")
 }
