@@ -3,10 +3,11 @@ package tnp
 import (
 	"fmt"
 	"regexp"
+	"strings"
 )
 
 var telPatternRegs = map[string][]*regexp.Regexp{
-	"fixed ;ine phone": []*regexp.Regexp{
+	"fixed line phone": []*regexp.Regexp{
 		regexp.MustCompile(`0[0-9]-[2-9]\d{3}-\d{4}`),
 		regexp.MustCompile(`0\d{2}-[2-9]\d{2}-\d{4}`),
 		regexp.MustCompile(`0\d{3}-[2-9]\d{1}-\d{4}`),
@@ -42,6 +43,11 @@ func IsTelNumber(s string) (bool, string) {
 			}
 		}
 	}
+
+	if hasParenthesis(s) {
+		return IsTelNumber(replaceParenthesis(s))
+	}
+
 	return false, ""
 }
 
@@ -54,5 +60,20 @@ func CropTelNumber(s string) (string, error) {
 		}
 	}
 
+	if hasParenthesis(s) {
+		return CropTelNumber(replaceParenthesis(s))
+	}
+
 	return "", fmt.Errorf("not tel number")
+}
+
+func hasParenthesis(s string) bool {
+	return strings.Contains(s, "(") && strings.Contains(s, ")")
+}
+
+func replaceParenthesis(s string) string {
+	var ret string
+	ret = strings.Replace(s, "(", "-", -1)
+	ret = strings.Replace(ret, ")", "-", -1)
+	return ret
 }
