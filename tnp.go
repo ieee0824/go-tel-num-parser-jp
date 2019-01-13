@@ -6,6 +6,21 @@ import (
 	"strings"
 )
 
+var ignoreTypes = []string{}
+
+func SetIgnoreTypes(s ...string) {
+	ignoreTypes = append(ignoreTypes, s...)
+}
+
+func isIgnore(s string) bool {
+	for _, v := range ignoreTypes {
+		if v == s {
+			return true
+		}
+	}
+	return false
+}
+
 var telPatternRegs = map[string][]*regexp.Regexp{
 	"fixed line phone": []*regexp.Regexp{
 		regexp.MustCompile(`0[0-9]-[2-9]\d{3}-\d{4}`),
@@ -37,6 +52,9 @@ var telPatternRegs = map[string][]*regexp.Regexp{
 
 func IsTelNumber(s string) (bool, string) {
 	for k, rs := range telPatternRegs {
+		if isIgnore(k) {
+			continue
+		}
 		for _, r := range rs {
 			if r.Copy().MatchString(s) {
 				return true, k
@@ -52,7 +70,10 @@ func IsTelNumber(s string) (bool, string) {
 }
 
 func CropTelNumber(s string) (string, error) {
-	for _, rs := range telPatternRegs {
+	for k, rs := range telPatternRegs {
+		if isIgnore(k) {
+			continue
+		}
 		for _, r := range rs {
 			if r.Copy().MatchString(s) {
 				return r.Copy().FindString(s), nil
