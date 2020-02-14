@@ -62,26 +62,52 @@ var telPatternRegs = [][]*regexp.Regexp{
 		regexp.MustCompile(`0\d{2}-[2-9]\d{2}-\d{4}`),
 		regexp.MustCompile(`0\d{3}-[2-9]\d{1}-\d{4}`),
 		regexp.MustCompile(`0\d{4}-[2-9]-\d{4}`),
+
+		// Draft implementation
+		regexp.MustCompile(`0[0-9][2-9]\d{3}\d{4}`),
+		regexp.MustCompile(`0\d{2}[2-9]\d{2}\d{4}`),
+		regexp.MustCompile(`0\d{3}[2-9]\d{1}\d{4}`),
+		regexp.MustCompile(`0\d{4}[2-9]\d{4}`),
 	},
 	[]*regexp.Regexp{
 		regexp.MustCompile(`020-([1-3]|[5-9])\d{2}-\d{5}`),
+
+		// Draft implementation
+		regexp.MustCompile(`020([1-3]|[5-9])\d{2}\d{5}`),
 	},
 	[]*regexp.Regexp{
 		regexp.MustCompile(`020-4\d{2}-\d{5}`),
+
+		// Draft implementation
+		regexp.MustCompile(`0204\d{2}\d{5}`),
 	},
 	[]*regexp.Regexp{
 		regexp.MustCompile(`050-[1-9]\d{3}-\d{4}`),
+
+		// Draft implementation
+		regexp.MustCompile(`050[1-9]\d{3}\d{4}`),
 	},
 	[]*regexp.Regexp{
 		regexp.MustCompile(`0[7-9]0-[1-9]\d{2}-\d{5}`),
 		regexp.MustCompile(`0[7-9]0-[1-9]\d{3}-\d{4}`),
+
+		// Draft implementation
+		regexp.MustCompile(`0[7-9]0[1-9]\d{2}\d{5}`),
+		regexp.MustCompile(`0[7-9]0[1-9]\d{3}\d{4}`),
 	},
 	[]*regexp.Regexp{
 		regexp.MustCompile(`0120-\d{3}-\d{3}`),
 		regexp.MustCompile(`0800-\d{3}-\d{3}`),
+
+		// Draft implementation
+		regexp.MustCompile(`0120\d{3}\d{3}`),
+		regexp.MustCompile(`0800\d{3}\d{3}`),
 	},
 	[]*regexp.Regexp{
 		regexp.MustCompile(`0570-\d{3}-\d{3}`),
+
+		// Draft implementation
+		regexp.MustCompile(`0570\d{3}\d{3}`),
 	},
 }
 
