@@ -1,3 +1,8 @@
+// Copyright ieee0824
+
+/*
+This package parses Japanese phone numbers.
+*/
 package tnp
 
 import (
@@ -37,6 +42,7 @@ var typeNames = []string{
 
 var ignoreTypes = []TelType{}
 
+// SetIgnoreTypes registers a list to be ignored from the judgment conditions.
 func SetIgnoreTypes(t ...TelType) {
 	ignoreTypes = append(ignoreTypes, t...)
 }
@@ -79,6 +85,7 @@ var telPatternRegs = [][]*regexp.Regexp{
 	},
 }
 
+// IsTelNumber determines that it is a phone number.
 func IsTelNumber(s string) (bool, TelType) {
 	for k, rs := range telPatternRegs {
 		if isIgnore(TelType(k)) {
@@ -98,6 +105,7 @@ func IsTelNumber(s string) (bool, TelType) {
 	return false, -1
 }
 
+// CropTelNumber retrieves when a phone number exists.
 func CropTelNumber(s string) (string, error) {
 	for k, rs := range telPatternRegs {
 		if isIgnore(TelType(k)) {
