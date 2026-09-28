@@ -4,7 +4,7 @@ import "testing"
 
 func TestIsTelNumber(t *testing.T) {
 	SetIgnoreTypes()
-	t.Cleanup(func() { SetIgnoreTypes() })
+	defer SetIgnoreTypes()
 
 	tests := []struct {
 		name  string
@@ -46,7 +46,7 @@ func TestIsTelNumber(t *testing.T) {
 
 func TestCropTelNumber(t *testing.T) {
 	SetIgnoreTypes()
-	t.Cleanup(func() { SetIgnoreTypes() })
+	defer SetIgnoreTypes()
 
 	tests := []struct {
 		input string
@@ -69,7 +69,7 @@ func TestCropTelNumber(t *testing.T) {
 
 func TestSetIgnoreTypes(t *testing.T) {
 	SetIgnoreTypes(IncomingCharge)
-	t.Cleanup(func() { SetIgnoreTypes() })
+	defer SetIgnoreTypes()
 	if got, _ := IsTelNumber("0120123456"); got {
 		t.Fatal("incoming charge number was not ignored")
 	}
