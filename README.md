@@ -1,6 +1,7 @@
 # go-tel-num-parser-jp
 
 日本の電話番号を形式で判定し、文字列から抽出する Go パッケージです。
+Go 1.27.1 以降を使用します。
 
 ```go
 ok, kind := tnp.IsTelNumber("060-1234-5678") // true, tnp.MobilePhone
